@@ -3,12 +3,14 @@ import React, { useState } from 'react'
 import { Button } from './ui/button'
 import { MoonIcon, SunIcon, Volume2, VolumeX } from 'lucide-react'
 import { useTheme } from 'next-themes'
+import { usePreferance } from './store/usePreferance'
 
 const PreferenceTap = () => {
     const [volume, setVolume] = useState(true)
+    const {soundEnabled,setSoundEnabled} = usePreferance();
     const {setTheme} = useTheme()
     const volumeOnOff = ()=>{
-        setVolume(!volume)
+        setSoundEnabled(!soundEnabled)
     }
   return (
     <div className="flex flex-wrap gap-2 px-1 md:px-2">
@@ -20,7 +22,7 @@ const PreferenceTap = () => {
         </Button>
         <Button variant={"outline"} size={"icon"} onClick={volumeOnOff}>
             {
-                volume ? <Volume2 className='size-[1.2rem] text-muted-foreground'/> : <VolumeX className='size-[1.2rem] text-muted-foreground' />
+                soundEnabled ? (<Volume2 className='size-[1.2rem] text-muted-foreground'/>) : (<VolumeX className='size-[1.2rem] text-muted-foreground' />)
             }
         </Button>
     </div>
